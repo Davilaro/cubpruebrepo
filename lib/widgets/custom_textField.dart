@@ -16,18 +16,24 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+          hintStyle: TextStyle(
+            color: Colors.grey
           ),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromRGBO(189, 189, 189, 1))),
-          fillColor: const Color.fromRGBO(238, 238, 238, 1),
-          filled: true,
           hintText: hintText,
+          // enabledBorder: const OutlineInputBorder(
+          //   borderSide: BorderSide(color: Colors.white),
+          // ),
+          // focusedBorder: const OutlineInputBorder(
+          //     borderSide: BorderSide(color: Color.fromRGBO(189, 189, 189, 1),
+          //     ),
+          //   ),
+          //fillColor: const Color.fromRGBO(238, 238, 238, 1),
+          //filled: true,
+          
         ),
       ),
     );

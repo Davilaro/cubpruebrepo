@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:coopi_app/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
-import '../components/custom_textField.dart';
-import '../components/custom_button.dart';
+import '../widgets/custom_textField.dart';
+import '../widgets/custom_button.dart';
 
 import '../models/user.dart';
 import '../database/database_service.dart';
@@ -111,45 +112,56 @@ class LoginState extends State<Login> {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(height: 50,),
-              const Icon(
-                Icons.lock,
-                size: 120,
+              //const SizedBox(height: 50,),
+              Image.asset('assets/images/Barcode-amico.png',
+                height: 280,
               ),
-              const SizedBox(height: 50,),
+
+              // const Icon(
+              //   Icons.lock,
+              //   size: 120,
+              // ),
+              //const SizedBox(height: 15,),
               const Text(
-                'Bienvenido de nuevo',
+                'INICIO DE SESIÓN',
                 style: TextStyle(
-                  color: Color.fromRGBO(97, 97, 97, 1),
-                  fontSize: 20,
+                  color: Colors.black54,
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold
                 ),
               ),
-              const SizedBox(height: 50,),
+              //const SizedBox(height: 50,),
               CustomTextField(
                 controller: usernameController,
                 hintText: 'Usuario',
                 obscureText: false,
               ),
-              const SizedBox(height: 20,),
+             // const SizedBox(height: 20,),
               CustomTextField(
                 controller: passwordController,
                 hintText: 'Contraseña',
                 obscureText: true,
               ),
-              const SizedBox(height: 20,),
-              Text(
-                'Recuperar contraseña',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-              const SizedBox(height: 50,),
+             // const SizedBox(height: 20,),
+              // Text(
+              //   'Recuperar contraseña',
+              //   style: TextStyle(color: Colors.grey[600]),
+              // ),
+             // const SizedBox(height: 50,),
               CustomButton(onTap: signUserIn,),
 
-              const SizedBox(height: 50,),
-              ElevatedButton(onPressed: () => listUsers(), child: const Text('data')),
-              const SizedBox(height: 50,),
+              CustomTextButton(
+                text: 'Recuperar Contraseña',
+                textSize: 16,
+                )
 
-              ElevatedButton(onPressed: () => deleteUsers(), child: const Text('delete users')),
+             // const SizedBox(height: 50,),
+           //   ElevatedButton(onPressed: () => listUsers(), child: const Text('data')),
+             // const SizedBox(height: 50,),
+
+             // ElevatedButton(onPressed: () => deleteUsers(), child: const Text('delete users')),
               // Text(users.toString()),
             ],
           ),
