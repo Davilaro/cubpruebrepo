@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:coopi_app/services/auth_service.dart';
 import 'package:coopi_app/widgets/custom_button.dart';
 import 'package:coopi_app/widgets/custom_textField.dart';
 import 'package:coopi_app/widgets/custom_text_button.dart';
@@ -10,11 +11,13 @@ import 'package:coopi_app/widgets/exports_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 //import '../widgets/custom_textField.dart';
 //import '../widgets/custom_button.dart';
 
 import '../models/user.dart';
 import '../database/database_service.dart';
+import '../services/http_service.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -41,42 +44,14 @@ class LoginState extends State<Login> {
       createdAt: DateTime.now().toString(),
     );
 
-  void signUserIn() async {
+  void signUserIn(BuildContext context) async {
 
-    String credentials = '${usernameController.text}:${passwordController.text}';
-    Codec<String, String> stringToBase64 = utf8.fuse(base64);
-    String encoded = stringToBase64.encode(credentials);
+    // usuario y contraseña para probar: adm7axm:adm7axm
 
-    var url = Uri.http(
-      'ec2-54-82-137-7.compute-1.amazonaws.com',
-      'webapi_qa/api/Auth/token'
-    );
+    AuthService authService = Provider.of<AuthService>(context, listen: false);
 
-    final response = await http.post(
-      url,
-      headers: {
-        HttpHeaders.authorizationHeader: 'Basic $encoded',
-      },
-    );
+    await authService.login(usernameController.text, passwordController.text);
 
-    print(response.statusCode);
-
-    List responseJson = [{
-      'message': 'peticion rechazada',
-    }];
-
-    if (response.statusCode == 200) {
-      responseJson = jsonDecode(response.body) as List<dynamic>;
-    }
-
-    print(responseJson);
-
-    DatabaseService dbService = DatabaseService(userData: userPrueba);
-
-    await dbService.insertUser();
-
-    print(usernameController.text);
-    print(passwordController.text);
   }
 
   void listUsers() async {
@@ -155,7 +130,7 @@ class LoginState extends State<Login> {
               //   style: TextStyle(color: Colors.grey[600]),
               // ),
              // const SizedBox(height: 50,),
-              CustomButton(onTap: signUserIn,),
+              CustomButton(onTap: () => signUserIn(context),),
 
               CustomTextButton(
                 text: 'Recuperar Contraseña',
