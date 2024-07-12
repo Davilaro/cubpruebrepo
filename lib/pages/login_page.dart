@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:coopi_app/widgets/custom_button.dart';
+import 'package:coopi_app/widgets/custom_textField.dart';
 import 'package:coopi_app/widgets/custom_text_button.dart';
+import 'package:coopi_app/widgets/exports_widgets.dart'; 
+
+//import 'package:coopi_app/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:http/http.dart' as http;
-import '../widgets/custom_textField.dart';
-import '../widgets/custom_button.dart';
+//import '../widgets/custom_textField.dart';
+//import '../widgets/custom_button.dart';
 
 import '../models/user.dart';
 import '../database/database_service.dart';
