@@ -39,6 +39,7 @@ class LoginState extends State<Login> {
       username: 'prueba',
       password: '1234',
       token: '1216164654',
+      role: '1',
       createdAt: DateTime.now().toString(),
     );
 
@@ -55,7 +56,7 @@ class LoginState extends State<Login> {
   void listUsers() async {
     print('funcion listar usuarios');
     
-    DatabaseService dbService = DatabaseService(userData: userPrueba);
+    DatabaseService dbService = DatabaseService();
 
     var userResults = await dbService.getUsers();
 
@@ -69,7 +70,7 @@ class LoginState extends State<Login> {
 
   void deleteUsers() async {
 
-    DatabaseService dbService = DatabaseService(userData: userPrueba);
+    DatabaseService dbService = DatabaseService();
 
     await dbService.deleteAllUsers();
 

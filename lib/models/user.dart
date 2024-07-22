@@ -6,6 +6,7 @@ class User {
   final String username;
   final String password;
   final String token;
+  final String role;
 
   final String createdAt;
   final String updatedAt;
@@ -17,6 +18,7 @@ class User {
       required this.username,
       required this.password,
       required this.token,
+      required this.role,
       required this.createdAt,
     }
   );
@@ -27,6 +29,7 @@ class User {
       'username': username,
       'password': password,
       'token': token,
+      'role': role,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -34,6 +37,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{id: $id, username: $username, password: $password, token: $token}';
+    return 'User{id: $id, username: $username, password: $password, token: $token, role: $role}';
   }
 }
