@@ -8,9 +8,9 @@ import '../models/user.dart';
 
 class DatabaseService {
 
-  final User userData;
+  final User? userData;
 
-  DatabaseService({required this.userData});
+  DatabaseService({this.userData});
   
   Future<Database> _initializeDatabase() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +28,7 @@ class DatabaseService {
             username TEXT,
             password TEXT,
             token TEXT,
+            role TEXT,
             createdAt TEXT,
             updatedAt TEXT
           )
@@ -42,7 +43,7 @@ class DatabaseService {
 
     await db.insert(
       'users',
-      userData.toMap(),
+      userData!.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -63,10 +64,18 @@ class DatabaseService {
         'username': username as String,
         'password': password as String,
         'token': token as String,
+        'role': role as String,
         'createdAt': createdAt as String,
         'updatedAt': updatedAt as String,
       } in userMaps)
-      User(updatedAt, id: id, username: username, password: password, token: token, createdAt: createdAt),
+      User(updatedAt,
+        id: id,
+        username: username,
+        password: password,
+        token: token,
+        role: role,
+        createdAt: createdAt
+      ),
     ];
   }
 
