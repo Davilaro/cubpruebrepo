@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:coopi_app/database/database_service.dart';
+import 'package:coopi_app/models/user.dart';
 import 'package:coopi_app/services/http_service.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class AuthService with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
 
-    String credentials = '${email}:${password}';
+    String credentials = '$email:$password';
     Codec<String, String> stringToBase64 = utf8.fuse(base64);
     String encoded = 'Basic ${stringToBase64.encode(credentials)}';
 
@@ -29,20 +30,27 @@ class AuthService with ChangeNotifier {
 
     if (response.statusCode == 200) {
       responseJson = jsonDecode(response.body) as List<dynamic>;
+
+      var userPrueba = User(
+        DateTime.now().toString(),
+        id: responseJson[0]['IdUsuario'],
+        username: email,
+        password: password,
+        token: responseJson[0]['token'],
+        role: responseJson[0]['IdRol'] as String,
+        createdAt: DateTime.now().toString(),
+      );
+
+      DatabaseService dbService = DatabaseService(userData: userPrueba);
+      await dbService.insertUser();
+
       isLogged = true;
       notifyListeners();
     }
-    
-
-    print(responseJson);
-
-    // DatabaseService dbService = DatabaseService(userData: userPrueba);
-
-    // await dbService.insertUser();
-
   }
 
   Future<void> logout() async {
     isLogged = false;
+    notifyListeners();
   }
 }
