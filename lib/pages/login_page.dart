@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:coopi_app/pages/auth_page.dart';
 import 'package:coopi_app/services/auth_service.dart';
 
 
@@ -86,10 +87,13 @@ class LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
-      body: SafeArea(
-        child: Center(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
+        body: InkWell(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -97,7 +101,7 @@ class LoginState extends State<Login> {
               Image.asset('assets/images/Barcode-amico.png',
                 height: 280,
               ),
-
+          
               // const Icon(
               //   Icons.lock,
               //   size: 120,
@@ -129,17 +133,24 @@ class LoginState extends State<Login> {
               //   style: TextStyle(color: Colors.grey[600]),
               // ),
              // const SizedBox(height: 50,),
-              CustomButton(onTap: () => signUserIn(context),),
-
+              CustomButton(onTap: () => 
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PrincipalPage()),
+                  )
+                //signUserIn(context),
+                //AuthPage()
+                ),
+          
               CustomTextButton(
                 text: 'Recuperar Contraseña',
                 textSize: 16,
                 )
-
+          
              // const SizedBox(height: 50,),
            //   ElevatedButton(onPressed: () => listUsers(), child: const Text('data')),
              // const SizedBox(height: 50,),
-
+          
              // ElevatedButton(onPressed: () => deleteUsers(), child: const Text('delete users')),
               // Text(users.toString()),
             ],

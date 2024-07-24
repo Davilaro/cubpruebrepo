@@ -11,6 +11,6 @@ class SessionWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     print(authService.isLogged);
-    return authService.isLogged ? HomePage() : Login();
+    return authService.isLogged ? PrincipalPage() : Login();
   }
 }
