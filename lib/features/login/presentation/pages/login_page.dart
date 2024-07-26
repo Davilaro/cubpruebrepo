@@ -139,7 +139,7 @@ class LoginState extends State<Login> {
               CustomButton(onTap: () => 
               Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BluetoothScanner()),
+                    MaterialPageRoute(builder: (context) => BarcodeScannerView()),
                   )
                 //signUserIn(context),
                 //AuthPage()
