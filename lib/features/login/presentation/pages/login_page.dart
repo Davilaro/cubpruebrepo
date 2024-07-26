@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:coopi_app/pages/auth_page.dart';
-import 'package:coopi_app/services/auth_service.dart';
+import 'package:coopi_app/features/login/services/auth_service.dart';
 
 
-import 'package:coopi_app/widgets/exports_widgets.dart'; 
+import 'package:coopi_app/features/widgets/exports_widgets.dart'; 
 
 
 import 'package:flutter/material.dart';
@@ -14,9 +14,12 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 
-import '../models/user.dart';
-import '../database/database_service.dart';
-import '../services/http_service.dart';
+import '../../../../database/database_service.dart';
+import '../../../scanner/presentation/pages/bluetoothScanner.dart';
+import '../../data/models/user.dart';
+//import '../features/login/data/models/user.dart';
+//import '../database/database_service.dart';
+//import '../services/http_service.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -136,7 +139,7 @@ class LoginState extends State<Login> {
               CustomButton(onTap: () => 
               Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PrincipalPage()),
+                    MaterialPageRoute(builder: (context) => BluetoothScanner()),
                   )
                 //signUserIn(context),
                 //AuthPage()

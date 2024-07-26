@@ -1,46 +1,26 @@
-import 'package:coopi_app/services/auth_service.dart';
+import 'package:coopi_app/features/login/services/auth_service.dart';
+import 'package:coopi_app/routes/appRoutes.dart';
 import 'package:coopi_app/session_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'pages/login_page.dart';
+
+import 'providers/providers_app.dart';
+//import 'pages/login_page.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
-  
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Coopidrogas gestion inventario',
-      home: MyHomePage(),
+
+    return  ProvidersApp(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const SessionWrapper(),
+        initialRoute: 'primeraPage',
+        routes: appRoutes,
+      ),
     );
   }
 }
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AuthService()),
-      ],
-      child: SessionWrapper(),
-      
-    );
-  }
-}
-
-// class MyHomePage extends StatelessWidget {
-//   const MyHomePage({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: Login(),
-//     );
-//   }
-// }

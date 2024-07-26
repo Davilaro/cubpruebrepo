@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:coopi_app/database/database_service.dart';
-import 'package:coopi_app/models/user.dart';
-import 'package:coopi_app/services/http_service.dart';
+import 'package:coopi_app/features/login/data/models/user.dart';
+import 'package:coopi_app/features/login/services/http_service.dart';
 import 'package:flutter/material.dart';
 
 class AuthService with ChangeNotifier {

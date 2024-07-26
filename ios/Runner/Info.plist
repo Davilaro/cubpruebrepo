@@ -29,6 +29,13 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
+
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Se necesita el uso de Bluetooth para conectar el escáner de códigos.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Se necesita el uso de Bluetooth para conectar el escáner de códigos.</string>
+
+
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

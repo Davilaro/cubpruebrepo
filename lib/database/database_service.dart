@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/user.dart';
+import '../features/login/data/models/user.dart';
 
 class DatabaseService {
 
