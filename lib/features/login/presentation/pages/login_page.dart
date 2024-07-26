@@ -5,7 +5,7 @@ import 'package:coopi_app/pages/auth_page.dart';
 import 'package:coopi_app/features/login/services/auth_service.dart';
 
 
-import 'package:coopi_app/features/widgets/exports_widgets.dart'; 
+import 'package:coopi_app/features/widgets/exports_widgets.dart';
 
 
 import 'package:flutter/material.dart';
@@ -31,35 +31,31 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
   List<User>? users;
 
-  var userPrueba = User(
-      DateTime.now().toString(),
-      id: 0,
-      username: 'prueba',
-      password: '1234',
-      token: '1216164654',
-      role: '1',
-      createdAt: DateTime.now().toString(),
-    );
+  List<dynamic>? errorMessage;
 
   void signUserIn(BuildContext context) async {
-
-    // usuario y contraseña para probar: adm7axm:adm7axm
+    // usuario y contraseña para probar: pruebasmov:123456
 
     AuthService authService = Provider.of<AuthService>(context, listen: false);
 
-    await authService.login(usernameController.text, passwordController.text);
+    var response = await authService.login(
+        usernameController.text, passwordController.text);
 
+    setState(() {
+      errorMessage = response;
+    });
+
+    print(response);
   }
 
   void listUsers() async {
     print('funcion listar usuarios');
-    
+
     DatabaseService dbService = DatabaseService();
 
     var userResults = await dbService.getUsers();
@@ -69,11 +65,9 @@ class LoginState extends State<Login> {
     // });
 
     print(userResults);
-
   }
 
   void deleteUsers() async {
-
     DatabaseService dbService = DatabaseService();
 
     await dbService.deleteAllUsers();
@@ -100,31 +94,22 @@ class LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              //const SizedBox(height: 50,),
-              Image.asset('assets/images/Barcode-amico.png',
+              Image.asset(
+                'assets/images/Barcode-amico.png',
                 height: 280,
               ),
-          
-              // const Icon(
-              //   Icons.lock,
-              //   size: 120,
-              // ),
-              //const SizedBox(height: 15,),
               const Text(
                 'INICIO DE SESIÓN',
                 style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold
-                ),
+                    color: Colors.black54,
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold),
               ),
-              //const SizedBox(height: 50,),
               CustomTextField(
                 controller: usernameController,
                 hintText: 'Usuario',
                 obscureText: false,
               ),
-             // const SizedBox(height: 20,),
               CustomTextField(
                 controller: passwordController,
                 hintText: 'Contraseña',
@@ -145,17 +130,24 @@ class LoginState extends State<Login> {
                 //AuthPage()
                 ),
           
+              errorMessage != null
+                  ? Text(
+                      errorMessage![0]['message'],
+                      style: const TextStyle(color: Colors.red, fontSize: 20),
+                    )
+                  : const Text(''),
+              CustomButton(
+                onTap: () => signUserIn(context),
+              ),
+
               CustomTextButton(
                 text: 'Recuperar Contraseña',
                 textSize: 16,
-                )
+              ),
           
-             // const SizedBox(height: 50,),
-           //   ElevatedButton(onPressed: () => listUsers(), child: const Text('data')),
-             // const SizedBox(height: 50,),
+              // ElevatedButton(onPressed: () => listUsers(), child: const Text('data')),
           
-             // ElevatedButton(onPressed: () => deleteUsers(), child: const Text('delete users')),
-              // Text(users.toString()),
+              // ElevatedButton(onPressed: () => deleteUsers(), child: const Text('delete users')),
             ],
           ),
         ),

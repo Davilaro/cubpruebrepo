@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:ffi';
 
+import 'package:coopi_app/database/database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,34 +14,13 @@ class DatabaseService {
 
   DatabaseService({this.userData});
   
-  Future<Database> _initializeDatabase() async {
+  Future<Database> _database() async {
     WidgetsFlutterBinding.ensureInitialized();
-    print('en el service');
-    final dbPath = await getDatabasesPath();
-
-    print(dbPath);
-
-    return openDatabase(
-      join(dbPath, 'coopi_app.db'),
-      onCreate:(db, version) {
-        return db.execute('''
-          CREATE TABLE users (
-            id INTEGER PRYMARY KEY,
-            username TEXT,
-            password TEXT,
-            token TEXT,
-            role TEXT,
-            createdAt TEXT,
-            updatedAt TEXT
-          )
-        ''',);
-      },
-      version: 1,
-    );
+    return await AppDatabase().database;
   }
 
   Future<void> insertUser() async {
-    final db = await _initializeDatabase();
+    final db = await _database();
 
     await db.insert(
       'users',
@@ -54,7 +35,7 @@ class DatabaseService {
     // get users
   Future<List<User>> getUsers() async {
 
-    final db = await _initializeDatabase();
+    final db = await _database();
 
     final List<Map<String, Object?>> userMaps = await db.query('users');
 
@@ -81,7 +62,7 @@ class DatabaseService {
 
   Future<void> deleteAllUsers() async {
 
-    final db = await _initializeDatabase();
+    final db = await _database();
 
     await db.rawDelete("DELETE FROM users");
   }

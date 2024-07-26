@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class AuthService with ChangeNotifier {
   bool isLogged = false;
 
-  Future<void> login(String email, String password) async {
+  Future<List<dynamic>> login(String email, String password) async {
 
     String credentials = '$email:$password';
     Codec<String, String> stringToBase64 = utf8.fuse(base64);
@@ -25,7 +25,8 @@ class AuthService with ChangeNotifier {
     print(response.statusCode);
 
     List responseJson = [{
-      'message': 'peticion rechazada',
+      'message': 'Usuario y/o contraseña incorrectos.',
+      'status': 400
     }];
 
     if (response.statusCode == 200) {
@@ -37,7 +38,7 @@ class AuthService with ChangeNotifier {
         username: email,
         password: password,
         token: responseJson[0]['token'],
-        role: responseJson[0]['IdRol'] as String,
+        role: responseJson[0]['IdRol'].toString(),
         createdAt: DateTime.now().toString(),
       );
 
@@ -47,6 +48,8 @@ class AuthService with ChangeNotifier {
       isLogged = true;
       notifyListeners();
     }
+
+    return responseJson;
   }
 
   Future<void> logout() async {
