@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'features/login/presentation/pages/login_page.dart';
+import 'features/scanner/presentation/pages/bluetooth_scanner.dart';
 
 class SessionWrapper extends StatelessWidget {
   const SessionWrapper({super.key});
@@ -13,6 +14,6 @@ class SessionWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     print(authService.isLogged);
-    return authService.isLogged ? PrincipalPage() : Login();
+    return authService.isLogged ? BarcodeScannerView() : const Login();
   }
 }

@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
     return  ProvidersApp(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const SessionWrapper(),
-        initialRoute: 'primeraPage',
+       // home: const SessionWrapper(),
+        initialRoute: 'sessionwrapper',
         routes: appRoutes,
       ),
     );

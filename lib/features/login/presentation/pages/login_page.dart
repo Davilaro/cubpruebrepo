@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 
 import '../../../../database/database_service.dart';
-import '../../../scanner/presentation/pages/bluetoothScanner.dart';
+import '../../../scanner/presentation/pages/bluetooth_scanner.dart';
 import '../../data/models/user.dart';
 //import '../features/login/data/models/user.dart';
 //import '../database/database_service.dart';
@@ -115,27 +115,24 @@ class LoginState extends State<Login> {
                 hintText: 'Contraseña',
                 obscureText: true,
               ),
-             // const SizedBox(height: 20,),
-              // Text(
-              //   'Recuperar contraseña',
-              //   style: TextStyle(color: Colors.grey[600]),
-              // ),
-             // const SizedBox(height: 50,),
-              CustomButton(onTap: () => 
-              Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BarcodeScannerView()),
-                  )
-                //signUserIn(context),
-                //AuthPage()
-                ),
+             
+              // CustomButton(onTap: () => 
+              // Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => BarcodeScannerView()),
+              //     )
+              //   //signUserIn(context),
+              //   //AuthPage()
+              //   ),
           
-              errorMessage != null
+            errorMessage != null
                   ? Text(
                       errorMessage![0]['message'],
                       style: const TextStyle(color: Colors.red, fontSize: 20),
                     )
                   : const Text(''),
+                    
+                  // const Text(''),
               CustomButton(
                 onTap: () => signUserIn(context),
               ),
